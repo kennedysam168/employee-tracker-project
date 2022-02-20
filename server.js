@@ -15,8 +15,8 @@ inquirer.prompt([
                       'view all employees', 
                       'add a department', 
                       'add a role', 
-                      'add an employee', 
-                      'update an employee role']
+                      'add an employee' 
+                      ]
         }
     ])
 
@@ -227,4 +227,4 @@ const addEmployee = () => {
 
 
 
-// promptUser();
+promptUser();
