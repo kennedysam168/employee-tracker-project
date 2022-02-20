@@ -188,13 +188,13 @@ const addEmployee = () => {
                 }
               ])
               .then((answer) => {
-                  createRole = answer.newRole;
+                  let createRole = answer.newRole;
                   let departmentId;
                   response.forEach((department) => {
                     if (departmentData.departmentName === department.department_name) {departmentId = department.id;}
                   });
-                  let sql =   `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
-                  let crit = [createdRole, answer.salary, departmentId];
+                  let sql =   `INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)`;
+                  let crit = [createRole, answer.salary, departmentId];
                   connection.query(sql, crit, (error) => {
                     if (error) throw error;
                     viewAllRoles();
@@ -223,4 +223,8 @@ const addEmployee = () => {
 };
 
 
-promptUser();
+
+
+
+
+// promptUser();
