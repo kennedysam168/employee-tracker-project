@@ -1,11 +1,11 @@
-const inquirer = require('inquirer')
-const connect = require('./connect-mysql/connect')
+const inquirer = require('inquirer');
+const { mainModule } = require('process');
+const connection = require('./connect-mysql/connect') 
 
 
 
-const Main = () => {
-inquirer
-    .prompt([
+const promptUser = () => {
+inquirer.prompt([
         {
             type: 'list',
             message: 'choose an option',
@@ -23,8 +23,8 @@ inquirer
     .then((userChoice) => {
         const {choices} = userChoice;
 
-        if(userChoice === 'view all departments') {
-            viewDepartments();
+        if(choices === 'view all departments') {
+            viewAllDepartments();
         }
 
         if(userChoice === 'view all roles') {
@@ -55,6 +55,27 @@ inquirer
 
 };
 
-function viewDepartments() {
-
+function viewAllDepartments() {
+    const sql =   `SELECT department.id AS id, department.department_name AS department FROM department`; 
+    connection.promise().query(sql, (error, response) => {
+        if (error) throw error;
+        console.table(response);
+        promptUser();
+    });
 }
+
+function viewRoles() {
+    const sql =     `SELECT role.id, role.title, department.department_name AS department
+                  FROM role
+                  INNER JOIN department ON role.department_id = department.id`;
+  connection.promise().query(sql, (error, response) => {
+    if (error) throw error;
+      response.forEach((role) => {console.log(role.title);
+    });
+    promptUser();
+});
+}
+
+
+
+promptUser();
