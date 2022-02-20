@@ -55,6 +55,7 @@ inquirer.prompt([
 
 };
 
+
 function viewAllDepartments() {
     const sql =   `SELECT department.id AS id, department.department_name AS department FROM department`; 
     connection.promise().query(sql, (error, response) => {
